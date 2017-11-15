@@ -1,0 +1,79 @@
+# Generated with the following on 2017-11-14T12:24:39.135076
+#
+#   openstack overcloud container image prepare --env-file ./containers-default-parameters.yaml -e /usr/share/openstack-tripleo-heat-templates/environments/docker.yaml --namespace 192.168.24.1:8787/tripleoupstream --tag latest
+#
+
+parameter_defaults:
+  DockerAodhApiImage: 192.168.24.1:8787/tripleoupstream/centos-binary-aodh-api:latest
+  DockerAodhConfigImage: 192.168.24.1:8787/tripleoupstream/centos-binary-aodh-api:latest
+  DockerAodhEvaluatorImage: 192.168.24.1:8787/tripleoupstream/centos-binary-aodh-evaluator:latest
+  DockerAodhListenerImage: 192.168.24.1:8787/tripleoupstream/centos-binary-aodh-listener:latest
+  DockerAodhNotifierImage: 192.168.24.1:8787/tripleoupstream/centos-binary-aodh-notifier:latest
+  DockerCeilometerCentralImage: 192.168.24.1:8787/tripleoupstream/centos-binary-ceilometer-central:latest
+  DockerCeilometerComputeImage: 192.168.24.1:8787/tripleoupstream/centos-binary-ceilometer-compute:latest
+  DockerCeilometerConfigImage: 192.168.24.1:8787/tripleoupstream/centos-binary-ceilometer-central:latest
+  DockerCeilometerNotificationImage: 192.168.24.1:8787/tripleoupstream/centos-binary-ceilometer-notification:latest
+  DockerCinderApiImage: 192.168.24.1:8787/tripleoupstream/centos-binary-cinder-api:latest
+  DockerCinderConfigImage: 192.168.24.1:8787/tripleoupstream/centos-binary-cinder-api:latest
+  DockerCinderSchedulerImage: 192.168.24.1:8787/tripleoupstream/centos-binary-cinder-scheduler:latest
+  DockerCinderVolumeImage: 192.168.24.1:8787/tripleoupstream/centos-binary-cinder-volume:latest
+  DockerClustercheckConfigImage: 192.168.24.1:8787/tripleoupstream/centos-binary-mariadb:latest
+  DockerClustercheckImage: 192.168.24.1:8787/tripleoupstream/centos-binary-mariadb:latest
+  DockerCrondConfigImage: 192.168.24.1:8787/tripleoupstream/centos-binary-cron:latest
+  DockerCrondImage: 192.168.24.1:8787/tripleoupstream/centos-binary-cron:latest
+  DockerGlanceApiConfigImage: 192.168.24.1:8787/tripleoupstream/centos-binary-glance-api:latest
+  DockerGlanceApiImage: 192.168.24.1:8787/tripleoupstream/centos-binary-glance-api:latest
+  DockerGnocchiApiImage: 192.168.24.1:8787/tripleoupstream/centos-binary-gnocchi-api:latest
+  DockerGnocchiConfigImage: 192.168.24.1:8787/tripleoupstream/centos-binary-gnocchi-api:latest
+  DockerGnocchiMetricdImage: 192.168.24.1:8787/tripleoupstream/centos-binary-gnocchi-metricd:latest
+  DockerGnocchiStatsdImage: 192.168.24.1:8787/tripleoupstream/centos-binary-gnocchi-statsd:latest
+  DockerHAProxyConfigImage: 192.168.24.1:8787/tripleoupstream/centos-binary-haproxy:latest
+  DockerHAProxyImage: 192.168.24.1:8787/tripleoupstream/centos-binary-haproxy:latest
+  DockerHeatApiCfnConfigImage: 192.168.24.1:8787/tripleoupstream/centos-binary-heat-api-cfn:latest
+  DockerHeatApiCfnImage: 192.168.24.1:8787/tripleoupstream/centos-binary-heat-api-cfn:latest
+  DockerHeatApiConfigImage: 192.168.24.1:8787/tripleoupstream/centos-binary-heat-api:latest
+  DockerHeatApiImage: 192.168.24.1:8787/tripleoupstream/centos-binary-heat-api:latest
+  DockerHeatConfigImage: 192.168.24.1:8787/tripleoupstream/centos-binary-heat-api:latest
+  DockerHeatEngineImage: 192.168.24.1:8787/tripleoupstream/centos-binary-heat-engine:latest
+  DockerHorizonConfigImage: 192.168.24.1:8787/tripleoupstream/centos-binary-horizon:latest
+  DockerHorizonImage: 192.168.24.1:8787/tripleoupstream/centos-binary-horizon:latest
+  DockerInsecureRegistryAddress:
+  - 192.168.24.1:8787
+  DockerIscsidConfigImage: 192.168.24.1:8787/tripleoupstream/centos-binary-iscsid:latest
+  DockerIscsidImage: 192.168.24.1:8787/tripleoupstream/centos-binary-iscsid:latest
+  DockerKeystoneConfigImage: 192.168.24.1:8787/tripleoupstream/centos-binary-keystone:latest
+  DockerKeystoneImage: 192.168.24.1:8787/tripleoupstream/centos-binary-keystone:latest
+  DockerMemcachedConfigImage: 192.168.24.1:8787/tripleoupstream/centos-binary-memcached:latest
+  DockerMemcachedImage: 192.168.24.1:8787/tripleoupstream/centos-binary-memcached:latest
+  DockerMysqlClientConfigImage: 192.168.24.1:8787/tripleoupstream/centos-binary-mariadb:latest
+  DockerMysqlConfigImage: 192.168.24.1:8787/tripleoupstream/centos-binary-mariadb:latest
+  DockerMysqlImage: 192.168.24.1:8787/tripleoupstream/centos-binary-mariadb:latest
+  DockerNeutronApiImage: 192.168.24.1:8787/tripleoupstream/centos-binary-neutron-server:latest
+  DockerNeutronConfigImage: 192.168.24.1:8787/tripleoupstream/centos-binary-neutron-server:latest
+  DockerNeutronDHCPImage: 192.168.24.1:8787/tripleoupstream/centos-binary-neutron-dhcp-agent:latest
+  DockerNeutronL3AgentImage: 192.168.24.1:8787/tripleoupstream/centos-binary-neutron-l3-agent:latest
+  DockerNeutronMetadataImage: 192.168.24.1:8787/tripleoupstream/centos-binary-neutron-metadata-agent:latest
+  DockerNovaApiImage: 192.168.24.1:8787/tripleoupstream/centos-binary-nova-api:latest
+  DockerNovaComputeImage: 192.168.24.1:8787/tripleoupstream/centos-binary-nova-compute:latest
+  DockerNovaConductorImage: 192.168.24.1:8787/tripleoupstream/centos-binary-nova-conductor:latest
+  DockerNovaConfigImage: 192.168.24.1:8787/tripleoupstream/centos-binary-nova-api:latest
+  DockerNovaConsoleauthImage: 192.168.24.1:8787/tripleoupstream/centos-binary-nova-consoleauth:latest
+  DockerNovaLibvirtConfigImage: 192.168.24.1:8787/tripleoupstream/centos-binary-nova-compute:latest
+  DockerNovaLibvirtImage: 192.168.24.1:8787/tripleoupstream/centos-binary-nova-libvirt:latest
+  DockerNovaMetadataImage: 192.168.24.1:8787/tripleoupstream/centos-binary-nova-api:latest
+  DockerNovaPlacementConfigImage: 192.168.24.1:8787/tripleoupstream/centos-binary-nova-placement-api:latest
+  DockerNovaPlacementImage: 192.168.24.1:8787/tripleoupstream/centos-binary-nova-placement-api:latest
+  DockerNovaSchedulerImage: 192.168.24.1:8787/tripleoupstream/centos-binary-nova-scheduler:latest
+  DockerNovaVncProxyImage: 192.168.24.1:8787/tripleoupstream/centos-binary-nova-novncproxy:latest
+  DockerOpenvswitchImage: 192.168.24.1:8787/tripleoupstream/centos-binary-neutron-openvswitch-agent:latest
+  DockerPankoApiImage: 192.168.24.1:8787/tripleoupstream/centos-binary-panko-api:latest
+  DockerPankoConfigImage: 192.168.24.1:8787/tripleoupstream/centos-binary-panko-api:latest
+  DockerRabbitmqConfigImage: 192.168.24.1:8787/tripleoupstream/centos-binary-rabbitmq:latest
+  DockerRabbitmqImage: 192.168.24.1:8787/tripleoupstream/centos-binary-rabbitmq:latest
+  DockerRedisConfigImage: 192.168.24.1:8787/tripleoupstream/centos-binary-redis:latest
+  DockerRedisImage: 192.168.24.1:8787/tripleoupstream/centos-binary-redis:latest
+  DockerSwiftAccountImage: 192.168.24.1:8787/tripleoupstream/centos-binary-swift-account:latest
+  DockerSwiftConfigImage: 192.168.24.1:8787/tripleoupstream/centos-binary-swift-proxy-server:latest
+  DockerSwiftContainerImage: 192.168.24.1:8787/tripleoupstream/centos-binary-swift-container:latest
+  DockerSwiftObjectImage: 192.168.24.1:8787/tripleoupstream/centos-binary-swift-object:latest
+  DockerSwiftProxyImage: 192.168.24.1:8787/tripleoupstream/centos-binary-swift-proxy-server:latest

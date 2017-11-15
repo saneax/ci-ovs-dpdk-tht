@@ -1,9 +1,6 @@
-heat_template_version: 2015-04-30
-
+heat_template_version: pike
 description: >
-  Software Config to drive os-net-config to configure VLANs for the
-  compute role.
-
+  Software Config to drive os-net-config to configure VLANs for the compute role.
 parameters:
   ControlPlaneIp:
     default: ''
@@ -15,7 +12,7 @@ parameters:
     type: string
   InternalApiIpSubnet:
     default: ''
-    description: IP address/subnet on the internal API network
+    description: IP address/subnet on the internal_api network
     type: string
   StorageIpSubnet:
     default: ''
@@ -23,7 +20,7 @@ parameters:
     type: string
   StorageMgmtIpSubnet:
     default: ''
-    description: IP address/subnet on the storage mgmt network
+    description: IP address/subnet on the storage_mgmt network
     type: string
   TenantIpSubnet:
     default: ''
@@ -41,6 +38,10 @@ parameters:
     default: 30
     description: Vlan ID for the storage network traffic.
     type: number
+  StorageMgmtNetworkVlanID:
+    default: 40
+    description: Vlan ID for the storage mgmt network traffic.
+    type: number
   TenantNetworkVlanID:
     default: 50
     description: Vlan ID for the tenant network traffic.
@@ -56,6 +57,14 @@ parameters:
   ControlPlaneDefaultRoute: # Override this via parameter_defaults
     description: The default route of the control plane network.
     type: string
+  ExternalInterfaceDefaultRoute: # Not used by default in this template
+    default: 10.0.0.1
+    description: The default route of the external network.
+    type: string
+  ManagementInterfaceDefaultRoute: # Commented out by default in this template
+    default: unset
+    description: The default route of the management network.
+    type: string
   DnsServers: # Override this via parameter_defaults
     default: []
     description: A list of DNS servers (2 max for some implementations) that will be added to resolv.conf.
@@ -63,76 +72,94 @@ parameters:
   EC2MetadataIp: # Override this via parameter_defaults
     description: The IP address of the EC2 metadata server.
     type: string
-
 resources:
   OsNetConfigImpl:
-    type: OS::Heat::StructuredConfig
+    type: OS::Heat::SoftwareConfig
     properties:
-      group: os-apply-config
+      group: script
       config:
-        os_net_config:
-          network_config:
-            -
-              type: interface
-              name: nic1
-              use_dhcp: false
-              dns_servers: {get_param: DnsServers}
-              addresses:
-                -
-                  ip_netmask:
+        str_replace:
+          template:
+            get_file: ../scripts/run-os-net-config.sh
+          params:
+            $network_config:
+              network_config:
+              - type: ovs_bridge
+                name: bridge_name
+                use_dhcp: false
+                dns_servers:
+                  get_param: DnsServers
+                addresses:
+                - ip_netmask:
                     list_join:
-                      - '/'
-                      - - {get_param: ControlPlaneIp}
-                        - {get_param: ControlPlaneSubnetCidr}
-              routes:
-                -
-                  ip_netmask: 169.254.169.254/32
-                  next_hop: {get_param: EC2MetadataIp}
-                -
-                  default: true
-                  next_hop: {get_param: ControlPlaneDefaultRoute}
-            -
-              type: ovs_user_bridge
-              name: br-link
-              use_dhcp: false
-              members:
-                -
-                  type: ovs_dpdk_port
-                  name: dpdk0
-                  members:
-                    -
-                      type: interface
-                      name: nic3
-            -
-              type: ovs_bridge
-              name: br-isol
-              use_dhcp: false
-              members:
-                -
-                  type: interface
-                  name: nic2
-                -
-                  type: vlan
-                  vlan_id: {get_param: InternalApiNetworkVlanID}
+                    - /
+                    - - get_param: ControlPlaneIp
+                      - get_param: ControlPlaneSubnetCidr
+                routes:
+                - ip_netmask: 169.254.169.254/32
+                  next_hop:
+                    get_param: EC2MetadataIp
+                - default: true
+                  next_hop:
+                    get_param: ControlPlaneDefaultRoute
+                members:
+                - type: interface
+                  name: nic1
+                  # force the MAC address of the bridge to this interface
+                  primary: true
+                - type: vlan
+                  vlan_id:
+                    get_param: InternalApiNetworkVlanID
                   addresses:
-                    -
-                      ip_netmask: {get_param: InternalApiIpSubnet}
-                -
-                  type: vlan
-                  vlan_id: {get_param: StorageNetworkVlanID}
+                  - ip_netmask:
+                      get_param: InternalApiIpSubnet
+                - type: vlan
+                  vlan_id:
+                    get_param: StorageNetworkVlanID
                   addresses:
-                    -
-                      ip_netmask: {get_param: StorageIpSubnet}
-                -
-                  type: vlan
-                  vlan_id: {get_param: TenantNetworkVlanID}
+                  - ip_netmask:
+                      get_param: StorageIpSubnet
+                # Uncomment when including environments/hyperconverged-ceph.yaml
+                #- type: vlan
+                #  vlan_id: {get_param: StorageMgmtNetworkVlanID}
+                #  addresses:
+                #    - ip_netmask: {get_param: StorageMgmtIpSubnet}
+                - type: vlan
+                  vlan_id:
+                    get_param: TenantNetworkVlanID
                   addresses:
-                    -
-                      ip_netmask: {get_param: TenantIpSubnet}
+                  - ip_netmask:
+                      get_param: TenantIpSubnet
+                # Uncomment when including environments/network-management.yaml
+                # If setting default route on the Management interface, comment
+                # out the default route on the Control Plane.
+                #- type: vlan
+                #  vlan_id: {get_param: ManagementNetworkVlanID}
+                #  addresses:
+                #    - ip_netmask: {get_param: ManagementIpSubnet}
+                #  routes:
+                #    - default: true
+                #      next_hop: {get_param: ManagementInterfaceDefaultRoute}
 
+              - type: ovs_user_bridge
+                name: br-link
+                use_dhcp: false
+                members:
+                - type: ovs_dpdk_port
+                  name: dpdk0
+                  driver: uio_pci_generic
+                  members:
+                  - type: interface
+                    name: nic2
+
+              - type: interface
+                name: nic3
+                use_dhcp: false
+                defroute: false
 
 outputs:
   OS::stack_id:
     description: The OsNetConfigImpl resource.
-    value: {get_resource: OsNetConfigImpl}
+    value:
+      get_resource: OsNetConfigImpl
 

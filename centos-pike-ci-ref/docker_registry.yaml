@@ -1,4 +1,4 @@
-# Generated with the following on 2017-10-24T09:25:04.692073
+# Generated with the following on 2017-11-09T04:08:51.782732
 #
 #   openstack overcloud container image prepare --namespace 192.168.24.1:8787/master --tag latest --env-file ./docker_registry.yaml
 #
@@ -16,7 +16,7 @@ parameter_defaults:
   DockerCeilometerConfigImage: 192.168.24.1:8787/master/centos-binary-ceilometer-central:latest
   DockerCeilometerIpmiImage: 192.168.24.1:8787/master/centos-binary-ceilometer-ipmi:latest
   DockerCeilometerNotificationImage: 192.168.24.1:8787/master/centos-binary-ceilometer-notification:latest
-  DockerCephDaemonImage: ceph/daemon:tag-build-master-jewel-centos-7
+  DockerCephDaemonImage: docker.io/ceph/daemon:tag-stable-3.0-jewel-centos-7
   DockerCinderApiImage: 192.168.24.1:8787/master/centos-binary-cinder-api:latest
   DockerCinderBackupImage: 192.168.24.1:8787/master/centos-binary-cinder-backup:latest
   DockerCinderConfigImage: 192.168.24.1:8787/master/centos-binary-cinder-api:latest
@@ -52,6 +52,8 @@ parameter_defaults:
   DockerHeatEngineImage: 192.168.24.1:8787/master/centos-binary-heat-engine:latest
   DockerHorizonConfigImage: 192.168.24.1:8787/master/centos-binary-horizon:latest
   DockerHorizonImage: 192.168.24.1:8787/master/centos-binary-horizon:latest
+  DockerInsecureRegistryAddress:
+  - 192.168.24.1:8787
   DockerIronicApiConfigImage: 192.168.24.1:8787/master/centos-binary-ironic-api:latest
   DockerIronicApiImage: 192.168.24.1:8787/master/centos-binary-ironic-api:latest
   DockerIronicConductorImage: 192.168.24.1:8787/master/centos-binary-ironic-conductor:latest
@@ -86,8 +88,6 @@ parameter_defaults:
   DockerNeutronDHCPImage: 192.168.24.1:8787/master/centos-binary-neutron-dhcp-agent:latest
   DockerNeutronL3AgentImage: 192.168.24.1:8787/master/centos-binary-neutron-l3-agent:latest
   DockerNeutronMetadataImage: 192.168.24.1:8787/master/centos-binary-neutron-metadata-agent:latest
-  DockerNeutronOvnApiImage: 192.168.24.1:8787/master/centos-binary-neutron-server-ovn:latest
-  DockerNeutronOvnConfigImage: 192.168.24.1:8787/master/centos-binary-neutron-server-ovn:latest
   DockerNeutronSriovImage: 192.168.24.1:8787/master/centos-binary-neutron-sriov-agent:latest
   DockerNovaApiImage: 192.168.24.1:8787/master/centos-binary-nova-api:latest
   DockerNovaComputeImage: 192.168.24.1:8787/master/centos-binary-nova-compute:latest
@@ -108,11 +108,6 @@ parameter_defaults:
   DockerOctaviaHousekeepingImage: 192.168.24.1:8787/master/centos-binary-octavia-housekeeping:latest
   DockerOctaviaWorkerImage: 192.168.24.1:8787/master/centos-binary-octavia-worker:latest
   DockerOpenvswitchImage: 192.168.24.1:8787/master/centos-binary-neutron-openvswitch-agent:latest
-  DockerOvnControllerConfigImage: 192.168.24.1:8787/master/centos-binary-ovn-controller:latest
-  DockerOvnControllerImage: 192.168.24.1:8787/master/centos-binary-ovn-controller:latest
-  DockerOvnNbDbImage: 192.168.24.1:8787/master/centos-binary-ovn-nb-db-server:latest
-  DockerOvnNorthdImage: 192.168.24.1:8787/master/centos-binary-ovn-northd:latest
-  DockerOvnSbDbImage: 192.168.24.1:8787/master/centos-binary-ovn-sb-db-server:latest
   DockerPankoApiImage: 192.168.24.1:8787/master/centos-binary-panko-api:latest
   DockerPankoConfigImage: 192.168.24.1:8787/master/centos-binary-panko-api:latest
   DockerQdrouterdConfigImage: 192.168.24.1:8787/master/centos-binary-qdrouterd:latest
@@ -126,6 +121,8 @@ parameter_defaults:
   DockerSaharaEngineImage: 192.168.24.1:8787/master/centos-binary-sahara-engine:latest
   DockerSensuClientImage: 192.168.24.1:8787/master/centos-binary-sensu-client:latest
   DockerSensuConfigImage: 192.168.24.1:8787/master/centos-binary-sensu-client:latest
+  DockerSkydiveAgentImage: 192.168.24.1:8787/master/centos-binary-skydive-agent:latest
+  DockerSkydiveAnalyzerImage: 192.168.24.1:8787/master/centos-binary-skydive-analyzer:latest
   DockerSwiftAccountImage: 192.168.24.1:8787/master/centos-binary-swift-account:latest
   DockerSwiftConfigImage: 192.168.24.1:8787/master/centos-binary-swift-proxy-server:latest
   DockerSwiftContainerImage: 192.168.24.1:8787/master/centos-binary-swift-container:latest
